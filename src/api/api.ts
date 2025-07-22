@@ -2,14 +2,10 @@ import { api } from '../shared/services/api'
 
 import { IResetPassword } from '../shared/dtos'
 
-const forgotPassword = async (email: string) => {
-  try {
-    const result = await api.post('/forgot-password', { email })
-
-    return result.data
-  } catch (error: any) {
-    throw new Error(error.message)
-  }
+interface ICustomerRegisterProps {
+  name: string
+  email: string
+  whatsapp: string
 }
 
 const login = async (email: string, password: string) => {
@@ -25,6 +21,16 @@ const login = async (email: string, password: string) => {
   }
 }
 
+const forgotPassword = async (email: string) => {
+  try {
+    const result = await api.post('/forgot-password', { email })
+
+    return result.data
+  } catch (error: any) {
+    throw new Error(error.message)
+  }
+}
+
 const resetPassword = async ({ token, password }: IResetPassword) => {
   try {
     const result = await api.patch(`/reset-password/${token}`, { password })
@@ -33,12 +39,6 @@ const resetPassword = async ({ token, password }: IResetPassword) => {
   } catch (error: any) {
     throw new Error(error.message)
   }
-}
-
-interface ICustomerRegisterProps {
-  name: string
-  email: string
-  whatsapp: string
 }
 
 const customerRegister = async (data: ICustomerRegisterProps) => {

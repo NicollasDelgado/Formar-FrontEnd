@@ -4,8 +4,8 @@ export const LightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#55368B',
-      light: '#9986B9',
+      main: '#f4c430',
+      light: '#e5e7eb',
       contrastText: '#fff',
     },
     secondary: {
@@ -18,20 +18,12 @@ export const LightTheme = createTheme({
     },
     background: {
       default: '#fff',
-      paper: '#fff',
+      paper: '#f9fafb	',
     },
   },
   typography: {
     allVariants: {
       color: '#333',
-    },
-  },
-  custom: {
-    tab: {
-      main: '#333',
-    },
-    icon: {
-      main: '#014071',
     },
   },
 })

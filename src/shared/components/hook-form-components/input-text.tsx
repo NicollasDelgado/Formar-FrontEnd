@@ -1,5 +1,4 @@
 import { Controller } from 'react-hook-form'
-
 import { InputProps } from './input-props'
 import { TextField, TextFieldProps } from '@mui/material'
 
@@ -9,7 +8,7 @@ export const InputText = ({
   name,
   control,
   label,
-  variant = 'filled',
+  variant = 'outlined',
   ...rest
 }: VTextFieldProps) => {
   return (
@@ -26,6 +25,17 @@ export const InputText = ({
           fullWidth
           label={label}
           variant={variant}
+          size="small"
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '&.Mui-focused fieldset': {
+                borderColor: 'black',
+              },
+            },
+            '& .MuiInputLabel-root.Mui-focused': {
+              color: 'black',
+            },
+          }}
         />
       )}
     />
