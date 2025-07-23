@@ -80,6 +80,9 @@ export const Login: React.FC = () => {
       <form onSubmit={handleSubmit(handleSubmitLogin)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
+            <Typography mb={1} variant="body1">
+              E-mail
+            </Typography>
             <InputText
               name="email"
               label="Digite seu email"
@@ -88,6 +91,10 @@ export const Login: React.FC = () => {
             />
           </Grid>
           <Grid item xs={12}>
+            <Typography mb={1} variant="body1">
+              Senha
+            </Typography>
+
             <InputText
               name="password"
               label="Digite sua senha"
@@ -135,7 +142,15 @@ export const Login: React.FC = () => {
 
           <Grid item xs={12}>
             {loading && <LinearProgress />}
-            <Button fullWidth variant="contained" type="submit" color="primary">
+            <Button
+              fullWidth
+              variant="contained"
+              type="submit"
+              color="primary"
+              sx={{
+                boxShadow: 'none',
+              }}
+            >
               <Typography variant="button" color="white">
                 Entrar
               </Typography>

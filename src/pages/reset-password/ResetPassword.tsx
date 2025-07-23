@@ -87,6 +87,9 @@ export const ResetPassword: React.FC = () => {
       <form onSubmit={handleSubmit(handleSubmitResetPassword)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
+            <Typography mb={1} variant="body1">
+              Senha
+            </Typography>
             <InputText
               name="password"
               label="Digite sua nova senha"
@@ -111,6 +114,9 @@ export const ResetPassword: React.FC = () => {
           </Grid>
 
           <Grid item xs={12}>
+            <Typography mb={1} variant="body1">
+              Confirme sua Senha
+            </Typography>
             <InputText
               name="password_confirmation"
               label="Confirme sua nova senha"

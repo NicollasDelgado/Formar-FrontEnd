@@ -74,6 +74,9 @@ export const ForgotPassword: React.FC = () => {
       <form onSubmit={handleSubmit(handleSubmitForgotPassword)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
+            <Typography mb={1} variant="body1">
+              E-mail
+            </Typography>
             <InputText
               name="email"
               label="Digite seu email"
