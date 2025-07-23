@@ -64,8 +64,8 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => {
             >
               <Box
                 width="100%"
-                marginBottom={5}
-                marginTop={2}
+                marginBottom={3}
+                marginTop={5}
                 display="flex"
                 flexDirection="column"
               >
@@ -101,7 +101,7 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => {
               </Box>
 
               {/* Formulário ou conteúdo injetado */}
-              {children}
+              <Box mt={3.5}>{children}</Box>
             </Box>
           </Grid>
         </Grid>
