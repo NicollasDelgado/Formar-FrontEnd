@@ -79,7 +79,7 @@ export const ForgotPassword: React.FC = () => {
             </Typography>
             <InputText
               name="email"
-              label="Digite seu email"
+              placeholder="Digite seu email"
               control={control}
               type="email"
             />

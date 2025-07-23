@@ -85,7 +85,7 @@ export const Login: React.FC = () => {
             </Typography>
             <InputText
               name="email"
-              label="Digite seu email"
+              placeholder="Digite seu email"
               control={control}
               type="email"
             />
@@ -97,7 +97,7 @@ export const Login: React.FC = () => {
 
             <InputText
               name="password"
-              label="Digite sua senha"
+              placeholder="Digite sua senha"
               type={showPassword ? 'text' : 'password'}
               control={control}
               InputProps={{
@@ -149,6 +149,10 @@ export const Login: React.FC = () => {
               color="primary"
               sx={{
                 boxShadow: 'none',
+                '&:hover': {
+                  boxShadow: 'none',
+                },
+                borderRadius: 2,
               }}
             >
               <Typography variant="button" color="white">

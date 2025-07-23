@@ -6,7 +6,7 @@ export interface OptionsProps {
 export interface InputProps {
   name: string
   control: any
-  label: string
+  label?: string
   setValue?: any
   variant?: 'outlined' | 'filled' | 'standard'
   options?: OptionsProps[]

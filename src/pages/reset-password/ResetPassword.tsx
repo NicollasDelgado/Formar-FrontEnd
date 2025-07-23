@@ -119,7 +119,7 @@ export const ResetPassword: React.FC = () => {
             </Typography>
             <InputText
               name="password_confirmation"
-              label="Confirme sua nova senha"
+              placeholder="Confirme sua nova senha"
               control={control}
               type={showPassword ? 'text' : 'password'}
               InputProps={{
