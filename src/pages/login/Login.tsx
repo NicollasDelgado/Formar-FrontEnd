@@ -15,7 +15,7 @@ import {
   LinearProgress,
 } from '@mui/material'
 
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import { useAuth } from '../../shared/hooks/auth'
 import { useToast } from '../../shared/hooks/Toast'
@@ -32,6 +32,7 @@ type LoginFormType = zod.infer<typeof loginFormValidationSchema>
 
 export const Login: React.FC = () => {
   const { addToast } = useToast()
+  const navigate = useNavigate()
 
   const { signIn } = useAuth()
 
@@ -62,6 +63,8 @@ export const Login: React.FC = () => {
           type: 'success',
           title: `Bem Vindo ${result?.user.name}`,
         })
+
+        navigate('/home')
       } catch (err: any) {
         addToast({
           type: 'error',

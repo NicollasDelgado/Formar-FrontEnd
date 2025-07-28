@@ -1,4 +1,4 @@
-import { BaseLayoutPage } from "../../shared/layouts"
+import { BaseLayoutPage } from '../../shared/layouts'
 
 export const Analytics: React.FC = () => {
   return (
