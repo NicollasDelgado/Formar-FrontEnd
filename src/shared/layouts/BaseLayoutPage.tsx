@@ -3,7 +3,7 @@ import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined
 import DriveEtaOutlinedIcon from '@mui/icons-material/DriveEtaOutlined'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
 import LogoutIcon from '@mui/icons-material/Logout'
-import logo from '../../assets/logo.png'
+// import logo from '../../assets/logo.png' // Ajuste o caminho conforme necessário
 
 interface IBaseLayoutPageProps {
   children: React.ReactNode
@@ -38,7 +38,10 @@ export const BaseLayoutPage: React.FC<IBaseLayoutPageProps> = ({
       >
         {/* LOGO E MENU */}
         <Box display="flex" alignItems="center">
-          <img src={logo} alt="Instituto Formar" width="150px" />
+          {/* <img src={logo} alt="Instituto Formar" width="150px" /> */}
+          <Typography variant="h5" fontWeight="bold" color="primary">
+            Formar
+          </Typography>
 
           {/* BOTÕES */}
           <Box display="flex" alignItems="center" ml={6}>
