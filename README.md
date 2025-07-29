@@ -1,12 +1,10 @@
-## Projeto Final Do Vem Ser Dev 
+## Projeto Vem Ser Dev (Front-End)
 
-#### Para o instituto formar
+#### Para o Instituto Formar
 
 ```
-  #instala as dependencias
-  npm i
+  #Dashboard modificado com os elementos adicionados
+  (calendário)
 
-  #roda a aplicação em modo dev
-  npm run dev
-```
-
+  ##front modificado
+  ``
