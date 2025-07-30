@@ -5,7 +5,7 @@ export const User: React.FC = () => {
   return (
     <BaseLayoutPage>
       <h1>Users</h1>
-      <CustomDataGrid key={} columns={} rows={} />
+      {/* <CustomDataGrid key={} columns={} rows={} /> */}
     </BaseLayoutPage>
   )
 }

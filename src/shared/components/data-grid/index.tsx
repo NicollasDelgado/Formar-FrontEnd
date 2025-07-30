@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
   DataGrid,
   GridColDef,
@@ -25,10 +24,10 @@ export default function CustomDataGrid({ rows, columns }: CustomDataGridProps) {
             },
           },
         }}
-        pageSizeOptions={[5, 10, 20]} // Adicionei mais opções de tamanho de página
+        pageSizeOptions={[5, 10, 20]}
         checkboxSelection
         disableRowSelectionOnClick
-        slots={{ toolbar: GridToolbar }} // Adiciona a barra de ferramentas
+        slots={{ toolbar: GridToolbar }}
       />
     </Box>
   )

@@ -8,9 +8,10 @@ import {
   User,
   Analytics,
   Configurations,
+  Vehicles,
+  NewAppointments,
 } from '../pages'
 
-import { MenuSideBar } from '../shared/components'
 import { menu } from '../shared/utils/menu'
 
 export const PrivateRoutes: React.FC = () => {
@@ -21,16 +22,15 @@ export const PrivateRoutes: React.FC = () => {
   }, [setDrawerOptions])
 
   return (
-    <MenuSideBar>
-      <Routes>
-        <Route path="/home" element={<Dashboard />} />
-        <Route path="/page-example" element={<PageExemple />} />
-        <Route path="/users" element={<User />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/configs" element={<Configurations />} />
-
-        <Route path="*" element={<Navigate to="/home" />} />
-      </Routes>
-    </MenuSideBar>
+    <Routes>
+      <Route path="/home" element={<Dashboard />} />
+      <Route path="/page-example" element={<PageExemple />} />
+      <Route path="/users" element={<User />} />
+      <Route path="/analytics" element={<Analytics />} />
+      <Route path="/configs" element={<Configurations />} />
+      <Route path="/vehicles" element={<Vehicles />} />
+      <Route path="/new-appointments" element={<NewAppointments />} />
+      <Route path="*" element={<Navigate to="/home" />} />
+    </Routes>
   )
 }

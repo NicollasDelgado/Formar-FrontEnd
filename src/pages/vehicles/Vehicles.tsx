@@ -7,7 +7,7 @@ export const Vehicles: React.FC = () => {
     <BaseLayoutPage>
       <Box>
         <h1>Vehicles</h1>
-        <CustomDataGrid key={} columns={} rows={} />
+        {/* <CustomDataGrid key={} columns={} rows={} /> */}
       </Box>
     </BaseLayoutPage>
   )

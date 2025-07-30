@@ -40,7 +40,11 @@ export const Dashboard: React.FC = () => {
     [27, 28, 29, 30, 31, 1, 2],
   ]
 
-  return <BaseLayoutPage>Home</BaseLayoutPage>
+  return (
+    <BaseLayoutPage>
+      <h1>home</h1>
+    </BaseLayoutPage>
+  )
 
   return (
     <Box p={4}>
