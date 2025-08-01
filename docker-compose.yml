@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+    web:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                VERSION: "${VERSION}"
+        image: ${IMAGE_NAME}:${VERSION}
+        container_name: ${IMAGE_NAME}
+        ports:
+            - ${PORT}:${PORT}
+
+        tty: true        
