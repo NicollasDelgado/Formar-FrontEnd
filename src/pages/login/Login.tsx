@@ -75,7 +75,7 @@ export const Login: React.FC = () => {
         setLoading(false)
       }
     },
-    [addToast, signIn],
+    [addToast, navigate, signIn],
   )
 
   return (
