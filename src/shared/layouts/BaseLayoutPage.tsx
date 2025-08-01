@@ -4,6 +4,8 @@ import DriveEtaOutlinedIcon from '@mui/icons-material/DriveEtaOutlined'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
 import LogoutIcon from '@mui/icons-material/Logout'
 import logo from '../../assets/logo.png' // Ajuste o caminho conforme necessário
+import { ButtonNavigation } from '../components/buttons-navigation'
+import { useAuth } from '../hooks/auth'
 
 interface IBaseLayoutPageProps {
   children: React.ReactNode
@@ -13,7 +15,21 @@ export const BaseLayoutPage: React.FC<IBaseLayoutPageProps> = ({
   children,
 }) => {
   const theme = useTheme()
-
+  const { signOut } = useAuth()
+  const links = [
+    {
+      label: 'Dashboard',
+      icon: <CalendarTodayOutlinedIcon />,
+      path: '/home',
+    },
+    { label: 'Veículos', icon: <DriveEtaOutlinedIcon />, path: '/vehicles' },
+    {
+      label: 'Novo Agendamento',
+      icon: <AddOutlinedIcon />,
+      path: '/new-appointments',
+    },
+    { label: 'Usuários', icon: <AddOutlinedIcon />, path: '/users' },
+  ]
   return (
     <Box
       height="100vh"
@@ -46,67 +62,22 @@ export const BaseLayoutPage: React.FC<IBaseLayoutPageProps> = ({
           {/* BOTÕES */}
           <Box display="flex" alignItems="center" ml={6}>
             {/* Dashboard */}
-            <Box
-              display="flex"
-              alignItems="center"
-              px={1.5}
-              py={1}
-              borderRadius={2}
-              sx={{
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                },
-              }}
-            >
-              <CalendarTodayOutlinedIcon sx={{ fontSize: 19 }} />
-              <Typography ml={1} variant="body2">
-                Dashboard
-              </Typography>
-            </Box>
+            {links.map((link) => (
+              <ButtonNavigation
+                key={link.label}
+                icon={link.icon}
+                label={link.label}
+                link={link.path}
+              />
+            ))}
 
             {/* Veículos */}
-            <Box
-              display="flex"
-              alignItems="center"
-              px={1.5}
-              py={1}
-              ml={2}
-              borderRadius={2}
-              sx={{
-                backgroundColor: 'rgba(0, 0, 0, 0.03)', // destaque leve
-              }}
-            >
-              <DriveEtaOutlinedIcon sx={{ fontSize: 19 }} />
-              <Typography ml={1} variant="body2">
-                Veículos
-              </Typography>
-            </Box>
-
-            {/* Novo Agendamento */}
-            <Box
-              display="flex"
-              alignItems="center"
-              px={1.5}
-              py={1}
-              ml={2}
-              borderRadius={2}
-              sx={{
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                },
-              }}
-            >
-              <AddOutlinedIcon sx={{ fontSize: 19 }} />
-              <Typography ml={1} variant="body2">
-                Novo Agendamento
-              </Typography>
-            </Box>
           </Box>
         </Box>
-
         {/* BOTÃO SAIR */}
         <Box display="flex" alignItems="center">
           <IconButton
+            onClick={signOut}
             sx={{
               px: 1.5,
               py: 1,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { jwtDecode, JwtPayload } from 'jwt-decode'
+import jwtDecode from 'jwt-decode'
 
 import { OpenRoutes } from './OpenRoutes'
 import { PrivateRoutes } from './PrivateRoutes'
@@ -10,7 +10,7 @@ export const AppRoutes: React.FC = () => {
   const { user, token } = useAuth()
 
   if (token) {
-    const decoded = jwtDecode<JwtPayload>(token)
+    const decoded = jwtDecode<any>(token)
 
     if (user && decoded.exp && decoded.exp >= new Date().getTime() / 1000) {
       return <PrivateRoutes />
