@@ -13,7 +13,7 @@ ENV NPM_CONFIG_PROGRESS=false
 
 COPY . . 
 
-#RUN npm install rollup
+RUN npm install rollup
 
 RUN npm cache clean --force && npm install && npm run build
 
