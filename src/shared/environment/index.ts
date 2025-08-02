@@ -14,7 +14,7 @@ export const environment = {
   /**
    * URL de acesso a api
    */
-  BASE_URL: 'http://148.230.79.50:3000',
+  BASE_URL: 'http://148.230.79.50:3333',
 
   /**
    * APP Name
