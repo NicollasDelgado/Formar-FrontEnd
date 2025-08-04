@@ -5,8 +5,7 @@ import CustomDataGrid from '../../shared/components/data-grid'
 // Definindo colunas do DataGrid
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
-  { field: 'patient', headerName: 'Paciente', width: 200 },
-  { field: 'doctor', headerName: 'Médico', width: 200 },
+  { field: 'funcionário', headerName: 'Funcionário', width: 200 },
   { field: 'date', headerName: 'Data', width: 150 },
   { field: 'status', headerName: 'Status', width: 120 },
 ]
@@ -15,15 +14,13 @@ const columns = [
 const rows = [
   {
     id: 1,
-    patient: 'Maria Oliveira',
-    doctor: 'Dr. João Silva',
+    funcionário: 'Maria Oliveira',
     date: '2025-08-01',
     status: 'Agendado',
   },
   {
     id: 2,
-    patient: 'Carlos Santos',
-    doctor: 'Dra. Ana Lima',
+    funcionário: 'Carlos Santos',
     date: '2025-08-02',
     status: 'Concluído',
   },
