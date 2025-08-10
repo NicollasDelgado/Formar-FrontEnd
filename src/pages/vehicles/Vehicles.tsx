@@ -13,7 +13,7 @@ const columns = [
 const rows = [
   {
     id: 1,
-    plate: 'ABC-1234',
+    plate: 'EDF-1234',
     model: 'Civic',
     brand: 'Honda',
     year: 2020,
