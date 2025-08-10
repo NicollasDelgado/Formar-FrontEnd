@@ -20,7 +20,7 @@ const rows = [
   },
   {
     id: 2,
-    plate: 'XYZ-5678',
+    plate: 'XEZ-5678',
     model: 'Corolla',
     brand: 'Toyota',
     year: 2019,
