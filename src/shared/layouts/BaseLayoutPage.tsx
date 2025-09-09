@@ -81,8 +81,10 @@ export const BaseLayoutPage: React.FC<IBaseLayoutPageProps> = ({
             sx={{
               px: 1.5,
               py: 1,
+              paddingRight: 5.5,
               borderRadius: 3,
-              color: theme.palette.text.primary,
+              color: "#000000f2",
+              opacity: 0.6,
               '&:hover': {
                 backgroundColor: 'rgba(255, 0, 0, 0.05)',
                 color: theme.palette.error.main,
@@ -96,7 +98,13 @@ export const BaseLayoutPage: React.FC<IBaseLayoutPageProps> = ({
             }}
           >
             <LogoutIcon fontSize="small" />
-            <Typography ml={1} variant="body2">
+            <Typography ml={1} variant="body2"
+              sx={{
+                color: "#000000",
+                opacity: 0.9,
+                paddingRight: 1,
+              }}
+            >
               Sair
             </Typography>
           </IconButton>

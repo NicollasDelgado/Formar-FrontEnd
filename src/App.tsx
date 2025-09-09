@@ -9,6 +9,13 @@ import { AppProvider } from './shared/hooks'
 import { AppRoutes } from './routes'
 
 import './global.css'
+// bypass temporário
+localStorage.setItem("token", "fake-token");
+localStorage.setItem("user", JSON.stringify({
+  id: 1,
+  name: "Nicollas",
+  email: "teste@teste.com"
+}));
 
 export const App: React.FC = () => (
   <AppProvider>

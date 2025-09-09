@@ -81,7 +81,7 @@ export const Login: React.FC = () => {
   return (
     <AuthLayout>
       <form onSubmit={handleSubmit(handleSubmitLogin)}>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Typography mb={1} variant="body1">
               E-mail
@@ -93,11 +93,11 @@ export const Login: React.FC = () => {
               type="email"
             />
           </Grid>
+
           <Grid item xs={12}>
             <Typography mb={1} variant="body1">
               Senha
             </Typography>
-
             <InputText
               name="password"
               placeholder="Digite sua senha"
@@ -120,6 +120,18 @@ export const Login: React.FC = () => {
               }}
             />
           </Grid>
+          <Grid item xs={12}>
+            <Box textAlign="end" marginRight={2}>
+              <Typography variant="body2" display="flex" alignItems="center" justifyContent="flex-end">
+                Não possui uma conta?
+                <Link to="/CreateUser" style={{ marginLeft: '8px', textDecoration: 'none' }}>
+                  <Typography variant="body2" color="primary" fontWeight="bold">
+                    Clique Aqui
+                  </Typography>
+                </Link>
+              </Typography>
+            </Box>
+          </Grid>
 
           <Grid item xs={12}>
             <Box
@@ -127,7 +139,7 @@ export const Login: React.FC = () => {
               display="flex"
               justifyContent="end"
               marginRight={2}
-              marginBottom={2}
+              marginBottom={1}
             >
               <Link
                 style={{
@@ -136,7 +148,7 @@ export const Login: React.FC = () => {
                 }}
                 to="/forgot-password"
               >
-                <Typography variant="body2" color="primary">
+                <Typography variant="body2"  color="primary" fontWeight="bold">
                   Esqueci minha senha
                 </Typography>
               </Link>
@@ -163,6 +175,7 @@ export const Login: React.FC = () => {
               </Typography>
             </Button>
           </Grid>
+          
         </Grid>
       </form>
     </AuthLayout>

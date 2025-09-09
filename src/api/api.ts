@@ -8,6 +8,12 @@ interface ICustomerRegisterProps {
   whatsapp: string
 }
 
+interface ICreateUserProps {
+  name: string
+  email: string
+  password: string
+}
+
 const login = async (email: string, password: string) => {
   try {
     const result = await api.post('/login', {
@@ -51,4 +57,14 @@ const customerRegister = async (data: ICustomerRegisterProps) => {
   }
 }
 
-export { login, forgotPassword, resetPassword, customerRegister }
+const createUser = async (data: ICreateUserProps) => {
+  try {
+    const result = await api.post('/users', data)
+
+    return result.data
+  } catch (error: any) {
+    throw new Error(error.message)
+  }
+}
+
+export { login, forgotPassword, resetPassword, customerRegister, createUser }
