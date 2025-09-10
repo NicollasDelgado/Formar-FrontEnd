@@ -11,7 +11,7 @@ interface ICustomerRegisterProps {
 interface ICreateUserProps {
   name: string
   email: string
-  password: string
+  whatsapp: string
 }
 
 const login = async (email: string, password: string) => {

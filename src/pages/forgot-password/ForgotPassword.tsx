@@ -94,7 +94,7 @@ export const ForgotPassword: React.FC = () => {
               disabled={loading}
             >
               <Typography variant="button" color="white">
-                Enviar reset
+                Enviar
               </Typography>
             </Button>
           </Grid>
@@ -114,7 +114,7 @@ export const ForgotPassword: React.FC = () => {
                 }}
               >
                 <Typography variant="body2" color="primary" fontWeight="bold">
-                  Login
+                  Página de Login
                 </Typography>
               </Link>
             </Typography>

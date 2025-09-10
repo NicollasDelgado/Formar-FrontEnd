@@ -10,7 +10,7 @@ const columns = [
   { field: 'status', headerName: 'Status', width: 120 },
 ]
 
-// Simulando alguns dados (você pode puxar isso de uma API depois)
+// mock data
 const rows = [
   {
     id: 1,

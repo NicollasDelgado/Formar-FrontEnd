@@ -5,9 +5,6 @@ import {
   Button,
   Grid,
   Typography,
-  InputAdornment,
-  IconButton,
-  Icon,
   LinearProgress,
 } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
@@ -24,8 +21,7 @@ import { AuthLayout } from '../../shared/layouts/AuthLayoutPage'
 interface ICreateUserData {
   name: string
   email: string
-  password: string
-  password_confirmation: string
+  whatsapp: string
 }
 
 const CreateUserValidationSchema = zod
@@ -38,17 +34,10 @@ const CreateUserValidationSchema = zod
       .string()
       .email('Digite um e-mail válido')
       .min(1, 'E-mail é obrigatório'),
-    password: zod
-      .string()
-      .min(6, 'Senha deve ter no mínimo 6 caracteres')
-      .max(50, 'Senha deve ter no máximo 50 caracteres'),
-    password_confirmation: zod
-      .string()
-      .min(6, 'Confirmação de senha deve ter no mínimo 6 caracteres'),
-  })
-  .refine((data) => data.password === data.password_confirmation, {
-    message: 'As senhas não coincidem',
-    path: ['password_confirmation'],
+    whatsapp: zod
+    .string()
+    .min(11, 'O número mínimo de caracteres é 11')
+    .max(15, 'O número máximo de caracteres deve ser 15')
   })
 
 type CreateUserFormType = zod.infer<typeof CreateUserValidationSchema>
@@ -62,15 +51,13 @@ export const CreateUser: React.FC = () => {
     defaultValues: {
       name: '',
       email: '',
-      password: '',
-      password_confirmation: '',
+      whatsapp: '',
     },
   })
 
   const { handleSubmit, control } = methods
 
   const [loading, setLoading] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmitCreateUser = useCallback(
     async (data: ICreateUserData) => {
@@ -80,7 +67,7 @@ export const CreateUser: React.FC = () => {
         await createUser({
           name: data.name,
           email: data.email,
-          password: data.password,
+          whatsapp: data.whatsapp
         })
 
         addToast({
@@ -144,72 +131,24 @@ export const CreateUser: React.FC = () => {
               label="Digite seu e-mail"
               control={control}
               type="email"
-              placeholder="Ex: joao@email.com"
+              placeholder="Ex: example@institutoformar.org"
               disabled={loading}
             />
           </Grid>
 
           <Grid item xs={12}>
-            <Typography mb={1} variant="body1">
-              Senha
+            <Typography mb={1} variant='body1'>
+              Whatsapp
             </Typography>
             <InputText
-              name="password"
-              label="Digite sua senha"
-              control={control}
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Mínimo 6 caracteres"
-              disabled={loading}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setShowPassword((prev) => !prev)}
-                      disabled={loading}
-                      edge="end"
-                    >
-                      {showPassword ? (
-                        <Icon>visibility</Icon>
-                      ) : (
-                        <Icon>visibility_off</Icon>
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
+            name: "whatsapp"
+            label="Digite seu numero do Whatsapp"
+            control={control}
+            placeholder="Ex: 19999999999"
             />
           </Grid>
 
-          <Grid item xs={12}>
-            <Typography mb={1} variant="body1">
-              Confirmar Senha
-            </Typography>
-            <InputText
-              name="password_confirmation"
-              label="Confirme sua senha"
-              control={control}
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Digite novamente sua senha"
-              disabled={loading}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setShowPassword((prev) => !prev)}
-                      disabled={loading}
-                      edge="end"
-                    >
-                      {showPassword ? (
-                        <Icon>visibility</Icon>
-                      ) : (
-                        <Icon>visibility_off</Icon>
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Grid>
+        
 
           <Grid item xs={12}>
             {loading && <LinearProgress sx={{ mb: 2 }} />}

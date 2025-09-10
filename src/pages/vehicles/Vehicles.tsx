@@ -10,6 +10,7 @@ const columns = [
   { field: 'year', headerName: 'Ano', width: 100 },
 ]
 
+// mock data
 const rows = [
   {
     id: 1,
