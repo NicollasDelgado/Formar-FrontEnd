@@ -99,7 +99,7 @@ export const CreateUser: React.FC = () => {
   return (
     <AuthLayout>
       <Box mb={1}>
-        <Typography variant="h4" component="h1" textAlign="center" gutterBottom>
+        <Typography variant="h4" component="h1" textAlign="center" gutterBottom fontFamily={"monospace"}>
           Criar Conta
         </Typography>
         <Typography variant="body2" textAlign="center" color="text.secondary">
@@ -117,7 +117,7 @@ export const CreateUser: React.FC = () => {
               name="name"
               label="Digite seu nome completo"
               control={control}
-              placeholder="Ex: João Silva"
+              placeholder="Ex: Fábio Amaral"
               disabled={loading}
             />
           </Grid>
@@ -127,37 +127,46 @@ export const CreateUser: React.FC = () => {
               E-mail
             </Typography>
             <InputText
+            
               name="email"
               label="Digite seu e-mail"
               control={control}
               type="email"
               placeholder="Ex: example@institutoformar.org"
               disabled={loading}
+              
             />
           </Grid>
 
           <Grid item xs={12}>
-            <Typography mb={1} variant='body1'>
-              Whatsapp
+            <Typography mb={1} variant="body1">
+              WhatsApp
             </Typography>
             <InputText
-            name: "whatsapp"
-            label="Digite seu numero do Whatsapp"
-            control={control}
-            placeholder="Ex: 19999999999"
+              name="whatsapp"
+              label="Digite seu Número de Telefone"
+              control={control}
+              placeholder="Ex: (19) 99999-9999"
+              disabled={loading}
+              
             />
           </Grid>
 
-        
-
           <Grid item xs={12}>
-            {loading && <LinearProgress sx={{ mb: 2 }} />}
+            {loading && <LinearProgress sx={{ mb: 2, backgroundColor: theme => theme.palette.primary.main }} />}
             <Button
               fullWidth
               variant="contained"
               type="submit"
               disabled={loading}
               size="large"
+              sx = {{transition: 
+                'backgroundColor 0.3 ease-in-out',
+                 '&:hover': 
+                 {backgroundColor: "#07a8f3ff",
+                   transform: 
+                   "scale(1.02)"}}}//f000a8ff
+
             >
               <Typography variant="button" color="white">
                 {loading ? 'Criando conta...' : 'Criar Conta'}
@@ -181,7 +190,15 @@ export const CreateUser: React.FC = () => {
                   textDecoration: 'none',
                 }}
               >
-                <Typography variant="body2" color="primary" fontWeight="bold">
+                <Typography variant="body2"
+                  sx = {{ 
+                    transition: "0.5 ease-in-out",
+                     color:"#d4c818ff", 
+                     fontWeight:"bold",
+                      "&:hover":
+                      { color: 
+                      "#f000a8ff", 
+                      transform: "scale(1.04)" }}}>
                   Fazer Login
                 </Typography>
               </Link>

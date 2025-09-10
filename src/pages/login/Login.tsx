@@ -86,11 +86,15 @@ export const Login: React.FC = () => {
             <Typography mb={1} variant="body1">
               E-mail
             </Typography>
-            <InputText
+          <InputText
+            
               name="email"
-              placeholder="Digite seu email"
+              label="Digite seu e-mail"
               control={control}
               type="email"
+              placeholder="Ex: example@institutoformar.org"
+              disabled={loading}
+              
             />
           </Grid>
 
@@ -125,7 +129,12 @@ export const Login: React.FC = () => {
               <Typography variant="body2" display="flex" alignItems="center" justifyContent="flex-end">
                 Não possui uma conta?
                 <Link to="/CreateUser" style={{ marginLeft: '8px', textDecoration: 'none' }}>
-                  <Typography variant="body2" color="primary" fontWeight="bold">
+                  <Typography variant="body2" color="primary" fontWeight="bold" sx={{
+                    transition: 
+                    "background-color 0.3 ease-in-out", 
+                    "&:hover": {
+                      color: '#f000a8ff', 
+                    transform: "scale(1.02)"}}}>
                     Clique Aqui
                   </Typography>
                 </Link>
@@ -148,7 +157,11 @@ export const Login: React.FC = () => {
                 }}
                 to="/forgot-password"
               >
-                <Typography variant="body2"  color="primary" fontWeight="bold">
+                <Typography variant="body2" color="primary" fontWeight="bold" sx={{
+                  transition: 
+                  " 0.3 ease-in-out", 
+                  "&:hover":{color: "#f000a8ff",
+                   transform:"scale(1.04)" }}}>
                   Esqueci minha senha
                 </Typography>
               </Link>
@@ -156,22 +169,23 @@ export const Login: React.FC = () => {
           </Grid>
 
           <Grid item xs={12}>
-            {loading && <LinearProgress />}
+            {loading && <LinearProgress sx={{ 
+              mb: 2
+            }
+            } />}
             <Button
+            
               fullWidth
               variant="contained"
               type="submit"
-              color="primary"
-              sx={{
-                boxShadow: 'none',
-                '&:hover': {
-                  boxShadow: 'none',
-                },
-                borderRadius: 2,
-              }}
+              disabled={loading}
+              size="large"
+              sx ={{transition: "background-color 0.3 ease-in-out","&:hover": {backgroundColor: '#07a8f3ff', transform: "scale(1.02)"}}}
+              
+              
             >
               <Typography variant="button" color="white">
-                Entrar
+                {loading ? 'Entrando...' : 'Entrar'}
               </Typography>
             </Button>
           </Grid>

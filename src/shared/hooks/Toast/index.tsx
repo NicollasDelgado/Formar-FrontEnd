@@ -46,7 +46,7 @@ const ToastProvider: FC<IProps> = ({ children }) => {
       )
 
       const icons = {
-        error: <FiXCircle color="#c53030" />,
+        error: <FiXCircle color="#e459d1ff" />,
         success: <FiCheckCircle color="#2e656a" />,
         warning: <FiAlertTriangle color="#F2E205" />,
         info: <FiInfo color="#3172b7" />,

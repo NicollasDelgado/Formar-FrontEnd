@@ -47,7 +47,7 @@ export const ButtonNavigation = ({
         py={1}
         borderRadius={2}
         sx={{
-          backgroundColor: selected ? 'rgba(0, 0, 0, 0.01)' : 'transparent',
+          backgroundColor: selected ? 'rgba(0, 0, 0, 0.04)' : 'transparent',
           '&:hover': {
             backgroundColor: selected
               ? 'rgba(0, 0, 0, 0.12)'

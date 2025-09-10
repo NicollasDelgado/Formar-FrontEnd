@@ -30,7 +30,7 @@ export const Dashboard: React.FC = () => {
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
 
   // Botão de Nova Ferramenta
-  const barraDeFerramentas: ReactNode = (
+  const toolsBar: ReactNode = (
           <Card>
             <CardContent>
               <Box>
@@ -144,7 +144,7 @@ export const Dashboard: React.FC = () => {
           <Typography variant="h4" component="h1">
             Dashboard
           </Typography>
-          {barraDeFerramentas}
+          {toolsBar}
         </Box>
 
         {/* Cards de estatísticas */}
