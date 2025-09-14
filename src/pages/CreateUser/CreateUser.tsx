@@ -16,7 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { createUser } from '../../api/api'
 import { useToast } from '../../shared/hooks/Toast'
 import { InputText } from '../../shared/components/hook-form-components/input-text'
-import { AuthLayout } from '../../shared/layouts/AuthLayoutPage'
+import { CreateLayoutPage } from '../../shared/layouts/CreateLayoutPage'
 
 interface ICreateUserData {
   name: string
@@ -97,7 +97,7 @@ export const CreateUser: React.FC = () => {
   )
 
   return (
-    <AuthLayout>
+    <CreateLayoutPage>
       <Box mb={1}>
         <Typography variant="h4" component="h1" textAlign="center" gutterBottom fontFamily={"monospace"}>
           Criar Conta
@@ -197,7 +197,7 @@ export const CreateUser: React.FC = () => {
                      fontWeight:"bold",
                       "&:hover":
                       { color: 
-                      "#f000a8ff", 
+                      "#F9636B", 
                       transform: "scale(1.04)" }}}>
                   Fazer Login
                 </Typography>
@@ -206,6 +206,6 @@ export const CreateUser: React.FC = () => {
           </Box>
         </Grid>
       </form>
-    </AuthLayout>
+    </CreateLayoutPage>
   )
 }

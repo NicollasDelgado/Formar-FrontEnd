@@ -12,7 +12,7 @@ import { useToast } from '../../shared/hooks/Toast'
 
 import { InputText } from '../../shared/components/hook-form-components/input-text'
 import { forgotPassword } from '../../api/api'
-import { AuthLayout } from '../../shared/layouts/AuthLayoutPage'
+import { ForgoutLayoutPage } from '../../shared/layouts/ForgoutLayoutPage'
 
 const forgotPasswordValidationSchema = zod.object({
   email: zod.string().email('Digite um email válido'),
@@ -70,7 +70,7 @@ export const ForgotPassword: React.FC = () => {
   )
 
   return (
-    <AuthLayout>
+    <ForgoutLayoutPage>
       <form onSubmit={handleSubmit(handleSubmitForgotPassword)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -121,6 +121,6 @@ export const ForgotPassword: React.FC = () => {
           </Box>
         </Grid>
       </form>
-    </AuthLayout>
+    </ForgoutLayoutPage>
   )
 }

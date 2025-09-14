@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react'
-
-import { useForm } from 'react-hook-form'
+import { useForm} from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -15,11 +14,9 @@ import {
   LinearProgress,
 } from '@mui/material'
 
-import { useNavigate, Link } from 'react-router-dom'
-
+import { useNavigate, Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../../shared/hooks/auth'
 import { useToast } from '../../shared/hooks/Toast'
-
 import { InputText } from '../../shared/components/hook-form-components/input-text'
 import { AuthLayout } from '../../shared/layouts/AuthLayoutPage'
 
@@ -33,11 +30,11 @@ type LoginFormType = zod.infer<typeof loginFormValidationSchema>
 export const Login: React.FC = () => {
   const { addToast } = useToast()
   const navigate = useNavigate()
-
   const { signIn } = useAuth()
-
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [placeholder, setPlaceholder] = useState('Digite seu e-mail')
+  
 
   const methods = useForm<LoginFormType>({
     resolver: zodResolver(loginFormValidationSchema),
@@ -53,7 +50,6 @@ export const Login: React.FC = () => {
     async (data: LoginFormType) => {
       try {
         setLoading(true)
-
         const result = await signIn({
           email: data.email,
           password: data.password,
@@ -82,21 +78,23 @@ export const Login: React.FC = () => {
     <AuthLayout>
       <form onSubmit={handleSubmit(handleSubmitLogin)}>
         <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Typography mb={1} variant="body1">
-              E-mail
-            </Typography>
+         <Grid item xs={12}>
+          <Typography mb={1} variant="body1">
+            E-mail
+          </Typography>
           <InputText
-            
-              name="email"
-              label="Digite seu e-mail"
-              control={control}
-              type="email"
-              placeholder="Ex: example@institutoformar.org"
-              disabled={loading}
-              
-            />
-          </Grid>
+            name="email"
+            control={control}
+            type="email"
+            disabled={loading}
+            placeholder={placeholder}
+            onFocus={() => setPlaceholder('Ex: example@institutoformar.org')}
+            onBlur={() => setPlaceholder('Digite seu e-mail')}
+            sx={{
+              width: '100%',
+            }}
+          />
+        </Grid>
 
           <Grid item xs={12}>
             <Typography mb={1} variant="body1">
@@ -124,20 +122,35 @@ export const Login: React.FC = () => {
               }}
             />
           </Grid>
+
           <Grid item xs={12}>
             <Box textAlign="end" marginRight={2}>
-              <Typography variant="body2" display="flex" alignItems="center" justifyContent="flex-end">
+              <Typography
+                variant="body2"
+                display="flex"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 Não possui uma conta?
-                <Link to="/CreateUser" style={{ marginLeft: '8px', textDecoration: 'none' }}>
-                  <Typography variant="body2" color="primary" fontWeight="bold" sx={{
-                    transition: 
-                    "background-color 0.3 ease-in-out", 
-                    "&:hover": {
-                      color: '#f000a8ff', 
-                    transform: "scale(1.02)"}}}>
+                <RouterLink
+                  to="/CreateUser"
+                  style={{ marginLeft: '8px', textDecoration: 'none' }}
+                >
+                  <Typography
+                    variant="body2"
+                    color="primary"
+                    fontWeight="bold"
+                    sx={{
+                      transition: 'background-color 0.3s ease-in-out',
+                      '&:hover': {
+                        color: '#F9636B',
+                        transform: 'scale(1.02)',
+                      },
+                    }}
+                  >
                     Clique Aqui
                   </Typography>
-                </Link>
+                </RouterLink>
               </Typography>
             </Box>
           </Grid>
@@ -150,46 +163,53 @@ export const Login: React.FC = () => {
               marginRight={2}
               marginBottom={1}
             >
-              <Link
+              <RouterLink
                 style={{
                   cursor: 'pointer',
                   textDecoration: 'none',
                 }}
                 to="/forgot-password"
               >
-                <Typography variant="body2" color="primary" fontWeight="bold" sx={{
-                  transition: 
-                  " 0.3 ease-in-out", 
-                  "&:hover":{color: "#f000a8ff",
-                   transform:"scale(1.04)" }}}>
+                <Typography
+                  variant="body2"
+                  color="primary"
+                  fontWeight="bold"
+                  sx={{
+                    transition: '0.3s ease-in-out',
+                    '&:hover': {
+                      color: '#F9636B',
+                      transform: 'scale(1.04)',
+                    },
+                  }}
+                >
                   Esqueci minha senha
                 </Typography>
-              </Link>
+              </RouterLink>
             </Box>
           </Grid>
 
           <Grid item xs={12}>
-            {loading && <LinearProgress sx={{ 
-              mb: 2
-            }
-            } />}
+            {loading && <LinearProgress sx={{ mb: 2 }} />}
             <Button
-            
               fullWidth
               variant="contained"
               type="submit"
               disabled={loading}
               size="large"
-              sx ={{transition: "background-color 0.3 ease-in-out","&:hover": {backgroundColor: '#07a8f3ff', transform: "scale(1.02)"}}}
-              
-              
+              sx={{
+                transition: 'background-color 0.3s ease-in-out',
+                '&:hover': {
+                  backgroundColor: '#07a8f3ff',
+                  transform: 'scale(1.02)',
+                },
+                mb: 3,
+              }}
             >
               <Typography variant="button" color="white">
                 {loading ? 'Entrando...' : 'Entrar'}
               </Typography>
             </Button>
-          </Grid>
-          
+         </Grid>
         </Grid>
       </form>
     </AuthLayout>
