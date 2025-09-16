@@ -16,7 +16,7 @@ import {
   ChevronRight,
   Add,
 } from '@mui/icons-material';
-import { BaseLayoutPage } from '../../shared/layouts/BaseLayoutPage';
+import { BaseLayoutPage } from '../../shared/layouts/BaseLayoutPage/BaseLayoutPage';
 
 interface DayObject {
   date: number;

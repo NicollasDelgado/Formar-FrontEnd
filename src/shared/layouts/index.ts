@@ -1,1 +1,1 @@
-export * from './BaseLayoutPage'
+export * from './BaseLayoutPage/BaseLayoutPage'
