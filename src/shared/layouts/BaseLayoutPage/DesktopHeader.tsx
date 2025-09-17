@@ -2,13 +2,12 @@ import {
   AppBar, 
   Toolbar, 
   Box, 
-  Theme, 
-  IconButton,
-  Typography
+  Theme
 } from '@mui/material'
 import { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
-import LogoutIcon from '@mui/icons-material/Logout' // Importar o ícone
+import { BotaoSair } from '../../components/buttons-navigation'
+import StatusIndicator from '../../components/StatusIndicator'
 
 interface DesktopHeaderProps {
   theme: Theme
@@ -39,6 +38,10 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
+        {/* StatusIndicator */}
+      <Box sx={{mr: -40}}>
+        <StatusIndicator />
+      </Box>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <img 
             src={logo} 
@@ -52,36 +55,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
         
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {navigationContent}
-          
-          {/* Botão Sarr */}
-          <IconButton
-            onClick={handleSignOut}
-            sx={{
-              px: 2,
-              py: 1,
-              borderRadius: 3,
-              color: theme.palette.text.primary,
-              transition: 'all 0.2s ease-in-out',
-              '&:hover': { 
-                backgroundColor: 'rgba(255,0,0,0.08)', 
-                color: theme.palette.error.main, 
-                transform: 'translateY(-1px)', 
-                boxShadow: theme.shadows[4] 
-              },
-            }}
-          >
-            <LogoutIcon fontSize="small" />
-            <Typography 
-              ml={1} 
-              variant="body2" 
-              sx={{ 
-                display: { md: 'none', lg: 'block' }, 
-                fontWeight: 500 
-              }}
-            >
-              Sair
-            </Typography>
-          </IconButton>
+          <BotaoSair onClick={handleSignOut} />
         </Box>
       </Toolbar>
     </AppBar>

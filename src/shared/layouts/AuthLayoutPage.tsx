@@ -26,7 +26,7 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => {
       }}
     >
       <Box
-        width={isMobile ? '95%' : isTablet ? '450px' : '420px'}
+        width={isMobile ? '100%' : isTablet ? '450px' : '420px'}
         sx={{
           height: 'auto',
           maxHeight: '95vh',
@@ -122,8 +122,10 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => {
                   }
                 }}
               >
-                <Typography variant="caption" color="text.disabled">
-                  •
+                <Typography variant="caption"
+                sx={{ fontSize: '20px', color: theme.palette.text.disabled }}
+                >
+                 •
                 </Typography>  
 
                 <Typography variant="caption" color="text.disabled"

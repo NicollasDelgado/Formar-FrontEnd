@@ -2,7 +2,6 @@ import { Box, useTheme, useMediaQuery } from '@mui/material'
 import { useState } from 'react'
 import logo from '../../../assets/logo.png' // caminho corrigido
 import { ButtonNavigation } from '../../components/buttons-navigation'
-import { useAuth } from '../../hooks/auth'
 import { MobileHeader } from './MobileHeader'
 import { MenuMobile } from './MenuMobile'
 import { DesktopHeader } from './DesktopHeader'
@@ -19,27 +18,15 @@ interface IBaseLayoutPageProps {
 export const BaseLayoutPage: React.FC<IBaseLayoutPageProps> = ({ 
   children, 
   customLogo, 
-  customNavigation, 
-  customSignOutAction 
+  customNavigation,
 }) => {
   const theme = useTheme()
-  const { signOut } = useAuth()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen(!mobileMenuOpen)
   }
-
-  const handleSignOut = () => {
-    if (customSignOutAction) {
-      customSignOutAction()
-    } else {
-      signOut()
-    }
-    setMobileMenuOpen(false)
-  }
-  
   const NavigationContent = customNavigation || <ButtonNavigation />
   const currentLogo = customLogo || logo
 
@@ -66,7 +53,6 @@ export const BaseLayoutPage: React.FC<IBaseLayoutPageProps> = ({
           onClose={() => setMobileMenuOpen(false)}
           logo={currentLogo}
           navigationContent={NavigationContent}
-          onSignOut={handleSignOut}
         />
 
         <Container isMobile={true}>

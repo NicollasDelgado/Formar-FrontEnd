@@ -10,6 +10,8 @@ import {
   Theme 
 } from '@mui/material'
 import { ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { BotaoSair } from '../../components/buttons-navigation'
 
 interface MenuMobileProps {
   theme: Theme
@@ -17,7 +19,6 @@ interface MenuMobileProps {
   onClose: () => void
   logo: string
   navigationContent: ReactNode
-  onSignOut: () => void
 }
 
 export const MenuMobile: React.FC<MenuMobileProps> = ({
@@ -26,11 +27,16 @@ export const MenuMobile: React.FC<MenuMobileProps> = ({
   onClose,
   logo,
   navigationContent,
-  onSignOut
 }) => {
+  const navigate = useNavigate()
+  
+  const handleSignOut = () => {
+    navigate('/login')
+  }
+  
   return (
     <Drawer
-      anchor="left"
+      anchor="right"
       open={open}
       onClose={onClose}
       sx={{
@@ -45,33 +51,37 @@ export const MenuMobile: React.FC<MenuMobileProps> = ({
           padding: theme.spacing(2),
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
+        <Box >
         <img 
           src={logo} 
           alt="Logo" 
-          style={{ height: 40 }} 
+          style={{ height: 30}} 
         />
+        </Box>
       </Box>
       <Divider />
       
-      <Box sx={{ overflow: 'auto' }}>
+     <Box sx={{ overflow: 'auto' }}>
         {navigationContent}
       </Box>
-      
+       {// Conteúdo de navegação */}
+
       <Box sx={{ mt: 'auto', p: 2 }}>
         <List>
           <ListItem disablePadding>
-            <ListItemButton onClick={onSignOut}>
+            <ListItemButton onClick={handleSignOut}>
               <ListItemIcon>
-                <span className="material-icons">logout</span>
+                <BotaoSair onClick={handleSignOut} variant="mobile"/>
               </ListItemIcon>
               <ListItemText primary="Sair" />
             </ListItemButton>
           </ListItem>
         </List>
       </Box>
+      }
     </Drawer>
   )
 }
