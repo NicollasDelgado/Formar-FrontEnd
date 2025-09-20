@@ -264,19 +264,21 @@ export const Vehicles: React.FC = () => {
                     <Chip 
                       label={vehicle.status} 
                       sx={{ 
-                        bgcolor: vehicle.status === 'Ativo' ? '#4caf50' : '#ff9800', 
-                        color: 'white', 
+                        bgcolor: vehicle.status === 'Ativo' ? '#f4c430' : '#000000', 
+                        color: 'black', 
                         fontWeight: 'bold',
-                        fontSize: '0.7rem'
+                        fontSize: '0.7rem',
                       }} 
                     />
                     <Chip 
                       label={vehicle.condition} 
                       sx={{ 
-                        bgcolor: '#a5f3dc', 
-                        color: 'black', 
+                        bgcolor: '#dcfce7', 
+                        color: '#166534', 
+                        fontfamily: '',
                         fontWeight: 'bold',
-                        fontSize: '0.7rem'
+                        fontSize: '0.7rem',
+                        '&:hover' : { bgcolor: '#f4c430cc' }
                       }} 
                     />
                   </Box>
