@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Box, Typography, Button, Chip, Card, CardContent, CardActions, 
   Dialog, DialogTitle, DialogContent, DialogActions, TextField,
-  MenuItem, Grid, Divider, AppBar, Tabs, Tab
+  MenuItem, Grid, AppBar, Tabs, Tab
 } from '@mui/material';
 import { BaseLayoutPage } from '../../shared/layouts';
 
@@ -34,7 +34,7 @@ interface NewMaintenance {
   estimatedCost: string;
 }
 
-// Mock data
+// Mock data - ATUALIZADO conforme a imagem
 const initialVehicles: Vehicle[] = [
   {
     id: 1,
@@ -66,7 +66,7 @@ const initialVehicles: Vehicle[] = [
     status: 'Manutenção',
     condition: 'Preventiva',
     maintenance: {
-      type: 'Preventiva',
+      type: 'preventive', // Alterado para minúsculo conforme imagem
       description: 'Revisão dos 20.000 km - troca de óleo, filtros e verificação geral',
       start: '15/01/2024',
       end: '17/01/2024',
@@ -83,6 +83,10 @@ const formatDateToBrazilian = (date: Date): string => {
   return `${day}/${month}/${year}`;
 };
 
+// Função para capitalizar primeira letra
+const capitalizeFirst = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 
 // Componente principal
 export const Vehicles: React.FC = () => {
@@ -138,9 +142,9 @@ export const Vehicles: React.FC = () => {
           ? { 
               ...v, 
               status: 'Manutenção',
-              condition: newMaintenance.type,
+              condition: capitalizeFirst(newMaintenance.type),
               maintenance: {
-                type: newMaintenance.type,
+                type: newMaintenance.type, // Mantém em minúsculo para exibição
                 description: newMaintenance.description,
                 start: formatDateToBrazilian(new Date()),
                 end: formattedDate,
@@ -225,8 +229,13 @@ export const Vehicles: React.FC = () => {
           </Box>
           <Button 
             variant="contained" 
-            sx={{ bgcolor: '#4dd0ff', color: 'black', borderRadius: 2, px: 3 }}
-            onClick={handleAddNewVehicle}
+            sx={{ 
+              backgroundColor: '#07a8f3ff',
+                '&:hover': {
+                  backgroundColor: '#f4c430',
+                  transform: 'scale(1.02)',
+                }, }}
+              onClick={handleAddNewVehicle}
           >
             + Novo Veículo
           </Button>
@@ -251,70 +260,106 @@ export const Vehicles: React.FC = () => {
           {vehicles
             .filter(v => tabValue === 0 ? v.status === 'Ativo' : v.status === 'Manutenção')
             .map((vehicle) => (
-              <Card key={vehicle.id} sx={{ width: 300, borderRadius: 2, boxShadow: 2 }}>
+              <Card key={vehicle.id} sx={{ 
+                width: 320, 
+                borderRadius: 2, 
+                boxShadow: '0px 2px 8px rgba(0,0,0,0.1)',
+                border: vehicle.status === 'Manutenção' ? '1px solid #f4c430' : '1px solid #e0e0e0'
+              }}>
                 <CardContent>
-                  <Typography variant="h6" fontWeight="bold">
-                    {vehicle.brand} {vehicle.model}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Placa: {vehicle.plate}
-                  </Typography>
-
-                  <Box display="flex" gap={1} my={1}>
+                  {/* Header do Card */}
+                  <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={1}>
+                    <Box>
+                      <Typography variant="h6" fontWeight="bold" gutterBottom>
+                        {vehicle.brand} {vehicle.model}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Placa: {vehicle.plate}
+                      </Typography>
+                    </Box>
                     <Chip 
                       label={vehicle.status} 
                       sx={{ 
                         bgcolor: vehicle.status === 'Ativo' ? '#f4c430' : '#000000', 
-                        color: 'black', 
+                        color: 'white', 
                         fontWeight: 'bold',
                         fontSize: '0.7rem',
-                      }} 
-                    />
-                    <Chip 
-                      label={vehicle.condition} 
-                      sx={{ 
-                        bgcolor: '#dcfce7', 
-                        color: '#166534', 
-                        fontfamily: '',
-                        fontWeight: 'bold',
-                        fontSize: '0.7rem',
-                        '&:hover' : { bgcolor: '#f4c430cc' }
+                        minWidth: 80
                       }} 
                     />
                   </Box>
 
-                  <Typography variant="body2"><b>Ano:</b> {vehicle.year}</Typography>
-                  <Typography variant="body2"><b>Cadastrado em:</b> {vehicle.registeredAt}</Typography>
-                  
+                  {/* Informações Básicas */}
+                  <Box mb={1}>
+                    <Typography variant="body2"><strong>Ano:</strong> {vehicle.year}</Typography>
+                    <Typography variant="body2"><strong>Tipo:</strong> {vehicle.maintenance?.type || 'preventive'}</Typography>
+                  </Box>
+
+                  {/* Informações de Manutenção (APENAS para veículos em manutenção) */}
                   {vehicle.status === 'Manutenção' && vehicle.maintenance && (
-                    <>
-                      <Divider sx={{ my: 1 }} />
-                      <Typography variant="body2"><b>Início:</b> {vehicle.maintenance.start}</Typography>
-                      <Typography variant="body2"><b>Previsão:</b> {vehicle.maintenance.end}</Typography>
-                      <Typography variant="body2" sx={{ wordBreak: 'break-word' }}>
-                        <b>Descrição:</b> {vehicle.maintenance.description}
+                    <Box sx={{ 
+                      backgroundColor: '#fff9e6', 
+                      p: 1.5, 
+                      borderRadius: 1,
+                      border: '1px solid #f4c43030'
+                    }}>
+                      <Typography variant="body2" gutterBottom>
+                        <strong>Início:</strong> {vehicle.maintenance.start}
                       </Typography>
-                      {vehicle.maintenance.cost && (
-                        <Typography variant="body2"><b>Custo:</b> R$ {vehicle.maintenance.cost}</Typography>
+                      <Typography variant="body2" gutterBottom>
+                        <strong>Previsão:</strong> {vehicle.maintenance.end}
+                      </Typography>
+                      <Typography variant="body2" sx={{ wordBreak: 'break-word' }}>
+                        <strong>Descrição:</strong> {vehicle.maintenance.description}
+                      </Typography>
+                      {vehicle.maintenance.cost && vehicle.maintenance.cost !== '0,00' && (
+                        <Typography variant="body2" sx={{ mt: 0.5 }}>
+                          <strong>Custo:</strong> R$ {vehicle.maintenance.cost}
+                        </Typography>
                       )}
-                    </>
+                    </Box>
                   )}
+
+                  {/* Condição do Veículo */}
+                  <Box display="flex" justifyContent="center" mt={1.5}>
+                    <Chip 
+                      label={vehicle.condition} 
+                      sx={{ 
+                        bgcolor: vehicle.status === 'Manutenção' ? '#ffeb3b' : '#dcfce7', 
+                        color: vehicle.status === 'Manutenção' ? '#000000' : '#166534', 
+                        fontWeight: 'bold',
+                        fontSize: '0.7rem',
+                      }} 
+                    />
+                  </Box>
                 </CardContent>
 
+                {/* Botões de Ação */}
                 <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
                   <Button 
                     size="small" 
                     variant="outlined" 
-                    sx={{ borderColor: '#4dd0ff', color: '#4dd0ff' }}
+                    sx={{ 
+                      borderColor: '#4dd0ff', 
+                      color: '#4dd0ff',
+                      fontSize: '0.75rem',
+                      px: 1
+                    }}
                     onClick={() => handleEditOpen(vehicle)}
                   >
                     Editar
                   </Button>
+                  
                   {vehicle.status === 'Ativo' ? (
                     <Button 
                       size="small" 
                       variant="outlined" 
-                      sx={{ borderColor: '#ff9800', color: '#ff9800' }}
+                      sx={{ 
+                        borderColor: '#ff9800', 
+                        color: '#ff9800',
+                        fontSize: '0.75rem',
+                        px: 1
+                      }}
                       onClick={() => handleMaintenanceOpen(vehicle)}
                     >
                       Manutenção
@@ -323,16 +368,27 @@ export const Vehicles: React.FC = () => {
                     <Button 
                       size="small" 
                       variant="outlined" 
-                      sx={{ borderColor: '#4caf50', color: '#4caf50' }}
+                      sx={{ 
+                        borderColor: '#4caf50', 
+                        color: '#4caf50',
+                        fontSize: '0.75rem',
+                        px: 1
+                      }}
                       onClick={() => handleFinishMaintenance(vehicle.id)}
                     >
                       Finalizar
                     </Button>
                   )}
+                  
                   <Button 
                     size="small" 
                     variant="outlined" 
-                    sx={{ borderColor: '#f44336', color: '#f44336' }}
+                    sx={{ 
+                      borderColor: '#f44336', 
+                      color: '#f44336',
+                      fontSize: '0.75rem',
+                      px: 1
+                    }}
                     onClick={() => handleDeleteVehicle(vehicle.id)}
                   >
                     Excluir
@@ -432,9 +488,9 @@ export const Vehicles: React.FC = () => {
                   <MenuItem value="" disabled>
                     Selecione o tipo
                   </MenuItem>
-                  <MenuItem value="Preventiva">Preventiva</MenuItem>
-                  <MenuItem value="Corretiva">Corretiva</MenuItem>
-                  <MenuItem value="Reparo">Reparo</MenuItem>
+                  <MenuItem value="preventive">Preventiva</MenuItem>
+                  <MenuItem value="corrective">Corretiva</MenuItem>
+                  <MenuItem value="repair">Reparo</MenuItem>
                 </TextField>
               </Grid>
               <Grid item xs={12}>

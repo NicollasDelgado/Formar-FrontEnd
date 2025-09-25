@@ -92,6 +92,15 @@ export const ForgotPassword: React.FC = () => {
               variant="contained"
               type="submit"
               disabled={loading}
+              size="large"
+              sx={{
+                transition: 'background-color 0.3s ease-in-out',
+                '&:hover': {
+                  backgroundColor: '#07a8f3ff',
+                  transform: 'scale(1.02)',
+                },
+                mb: 3,
+              }}
             >
               <Typography variant="button" color="white">
                 Enviar
@@ -113,7 +122,16 @@ export const ForgotPassword: React.FC = () => {
                   marginLeft: '10px',
                 }}
               >
-                <Typography variant="body2" color="primary" fontWeight="bold">
+                <Typography variant="body2"
+                  color="primary"
+                  fontWeight="bold"
+                  sx={{
+                    transition: '0.3s ease-in-out',
+                    '&:hover': {
+                      color: '#F9636B',
+                      transform: 'scale(1.04)',
+                    },
+                  }}>
                   Página de Login
                 </Typography>
               </Link>

@@ -40,13 +40,13 @@ export const BotaoSair: React.FC<{
           backgroundColor: 'rgba(255,0,0,0.08)', 
           color: theme.palette.error.main, 
           transform: 'translateY(-1px)', 
-          boxShadow: theme.shadows[4] 
+          boxShadow: '0px 6.5px 10px #F9A3A8'
         },
         '&:active': { // Para touch mobile - mesma animação do hover
           backgroundColor: 'rgba(255,0,0,0.08)', 
           color: theme.palette.error.main,
           transform: 'translateY(-1px)',
-          boxShadow: theme.shadows[4] 
+          boxShadow: theme.shadows[4], 
         }
       }}
     >
