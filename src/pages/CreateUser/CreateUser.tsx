@@ -1,12 +1,6 @@
 import { useState, useCallback } from 'react'
 
-import {
-  Box,
-  Button,
-  Grid,
-  Typography,
-  LinearProgress,
-} from '@mui/material'
+import { Box, Button, Grid, Typography, LinearProgress } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useForm } from 'react-hook-form'
@@ -24,21 +18,20 @@ interface ICreateUserData {
   whatsapp: string
 }
 
-const CreateUserValidationSchema = zod
-  .object({
-    name: zod
-      .string()
-      .min(2, 'Nome deve ter no mínimo 2 caracteres')
-      .max(100, 'Nome deve ter no máximo 100 caracteres'),
-    email: zod
-      .string()
-      .email('Digite um e-mail válido')
-      .min(1, 'E-mail é obrigatório'),
-    whatsapp: zod
+const CreateUserValidationSchema = zod.object({
+  name: zod
+    .string()
+    .min(2, 'Nome deve ter no mínimo 2 caracteres')
+    .max(100, 'Nome deve ter no máximo 100 caracteres'),
+  email: zod
+    .string()
+    .email('Digite um e-mail válido')
+    .min(1, 'E-mail é obrigatório'),
+  whatsapp: zod
     .string()
     .min(11, 'O número mínimo de caracteres é 11')
-    .max(15, 'O número máximo de caracteres deve ser 15')
-  })
+    .max(15, 'O número máximo de caracteres deve ser 15'),
+})
 
 type CreateUserFormType = zod.infer<typeof CreateUserValidationSchema>
 
@@ -67,7 +60,7 @@ export const CreateUser: React.FC = () => {
         await createUser({
           name: data.name,
           email: data.email,
-          whatsapp: data.whatsapp
+          whatsapp: data.whatsapp,
         })
 
         addToast({
@@ -75,15 +68,16 @@ export const CreateUser: React.FC = () => {
           title: 'Usuário criado com sucesso',
           description: 'Você será redirecionado para a página de login',
         })
-        
+
         // Redireciona para login após 2 segundos
         setTimeout(() => {
           navigate('/')
         }, 2000)
       } catch (err: any) {
-        const errorMessage = err?.response?.data?.message || 
+        const errorMessage =
+          err?.response?.data?.message ||
           'Erro ao criar usuário, verifique seus dados e tente novamente'
-        
+
         addToast({
           type: 'error',
           title: 'Erro ao criar usuário',
@@ -99,7 +93,13 @@ export const CreateUser: React.FC = () => {
   return (
     <CreateLayoutPage>
       <Box mb={1}>
-        <Typography variant="h4" component="h1" textAlign="center" gutterBottom fontFamily={"monospace"}>
+        <Typography
+          variant="h4"
+          component="h1"
+          textAlign="center"
+          gutterBottom
+          fontFamily={'monospace'}
+        >
           Criar Conta
         </Typography>
         <Typography variant="body2" textAlign="center" color="text.secondary">
@@ -127,14 +127,12 @@ export const CreateUser: React.FC = () => {
               E-mail
             </Typography>
             <InputText
-            
               name="email"
               label="Digite seu e-mail"
               control={control}
               type="email"
               placeholder="Ex: example@institutoformar.org"
               disabled={loading}
-              
             />
           </Grid>
 
@@ -148,25 +146,31 @@ export const CreateUser: React.FC = () => {
               control={control}
               placeholder="Ex: (19) 99999-9999"
               disabled={loading}
-              
             />
           </Grid>
 
           <Grid item xs={12}>
-            {loading && <LinearProgress sx={{ mb: 2, backgroundColor: theme => theme.palette.primary.main }} />}
+            {loading && (
+              <LinearProgress
+                sx={{
+                  mb: 2,
+                  backgroundColor: (theme) => theme.palette.primary.main,
+                }}
+              />
+            )}
             <Button
               fullWidth
               variant="contained"
               type="submit"
               disabled={loading}
               size="large"
-              sx = {{transition: 
-                'backgroundColor 0.3 ease-in-out',
-                 '&:hover': 
-                 {backgroundColor: "#07a8f3ff",
-                   transform: 
-                   "scale(1.02)"}}}//f000a8ff
-
+              sx={{
+                transition: 'backgroundColor 0.3 ease-in-out',
+                '&:hover': {
+                  backgroundColor: '#07a8f3ff',
+                  transform: 'scale(1.02)',
+                },
+              }} // f000a8ff
             >
               <Typography variant="button" color="white">
                 {loading ? 'Criando conta...' : 'Criar Conta'}
@@ -190,15 +194,15 @@ export const CreateUser: React.FC = () => {
                   textDecoration: 'none',
                 }}
               >
-                <Typography variant="body2"
-                  sx = {{ 
-                    transition: "0.5 ease-in-out",
-                     color:"#d4c818ff", 
-                     fontWeight:"bold",
-                      "&:hover":
-                      { color: 
-                      "#F9636B", 
-                      transform: "scale(1.04)" }}}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    transition: '0.5 ease-in-out',
+                    color: '#d4c818ff',
+                    fontWeight: 'bold',
+                    '&:hover': { color: '#F9636B', transform: 'scale(1.04)' },
+                  }}
+                >
                   Fazer Login
                 </Typography>
               </Link>
