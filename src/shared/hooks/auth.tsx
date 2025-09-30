@@ -46,12 +46,12 @@ const AuthProvider: React.FC<AuthProps> = ({ children }) => {
 
   const signIn = useCallback(async ({ email, password }: SignInCredencials) => {
     const payload = await login(email, password)
+    payload.user.role = 'admin'
 
-    localStorage.setItem(environment.APP_NAME, JSON.stringify(payload))
-
-    setData(payload)
-
-    return payload
+  localStorage.setItem(environment.APP_NAME, JSON.stringify(payload))
+  setData(payload)
+  return payload
+  
   }, [])
 
   const signOut = useCallback(() => {

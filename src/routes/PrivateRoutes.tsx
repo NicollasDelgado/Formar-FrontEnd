@@ -1,37 +1,55 @@
-  import React, { useEffect } from 'react'
-  import { Routes, Route, Navigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { useDrawer } from '../shared/hooks/drawer'
+import {
+  Dashboard,
+  User,
+  Analytics,
+  Configurations,
+  Vehicles,
+  NewAppointments,
+} from '../pages'
+import { getFilteredMenu } from '../shared/utils/menu'
+import { usePermission } from '../shared/hooks/usePermission'
+import { RoleRoute } from './RoleRoute'
 
-  import { useDrawer } from '../shared/hooks/drawer'
+export const PrivateRoutes: React.FC = () => {
+  const { setDrawerOptions } = useDrawer()
+  const { userRole } = usePermission()
 
-  import {
-    Dashboard,
-    CreateUser,
-    User,
-    Analytics,
-    Configurations,
-    Vehicles,
-    NewAppointments,
-  } from '../pages'
+  useEffect(() => {
+    // Filtra o menu baseado no role do usuário
+    const filteredMenu = getFilteredMenu(userRole)
+    setDrawerOptions(filteredMenu)
+  }, [setDrawerOptions, userRole])
 
-  import { menu } from '../shared/utils/menu'
+  return (
+    <Routes>
+      {/* Rotas acessíveis para TODOS os usuários autenticados */}
+      <Route path="/home" element={<Dashboard />} />
+      <Route path="/analytics" element={<Analytics />} />
+      <Route path="/configs" element={<Configurations />} />
+      <Route path="/new-appointments" element={<NewAppointments />} />
 
-  export const PrivateRoutes: React.FC = () => {
-    const { setDrawerOptions } = useDrawer()
+      {/* Rotas APENAS para ADMIN */}
+      <Route
+        path="/users"
+        element={
+          <RoleRoute allowedRoles={['admin']}>
+            <User />
+          </RoleRoute>
+        }
+      />
+      <Route
+        path="/vehicles"
+        element={
+          <RoleRoute allowedRoles={['admin']}>
+            <Vehicles />
+          </RoleRoute>
+        }
+      />
 
-    useEffect(() => {
-      setDrawerOptions(menu)
-    }, [setDrawerOptions])
-
-    return (
-      <Routes>
-        <Route path="/home" element={<Dashboard />} />
-        <Route path="/CreateUser" element={<CreateUser />} />
-        <Route path="/users" element={<User />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/configs" element={<Configurations />} />
-        <Route path="/vehicles" element={<Vehicles />} />
-        <Route path="/new-appointments" element={<NewAppointments />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
-      </Routes>
-    )
-  }
+      <Route path="*" element={<Navigate to="/home" replace />} />
+    </Routes>
+  )
+}

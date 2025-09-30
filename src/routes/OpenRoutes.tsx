@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { Login, ForgotPassword, ResetPassword, Analytics, Configurations, Dashboard, NewAppointments, CreateUser, User, Vehicles } from '../pages'
+import { UpdateUsers } from '../pages/UpdateUsers/UpdateUsers'
 
 export const OpenRoutes: React.FC = () => {
   return (
@@ -10,10 +11,11 @@ export const OpenRoutes: React.FC = () => {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="*" element={<Navigate to="/" />} />
+      <Route path="/CreateUser" element={<CreateUser />} />
+      <Route path="/UpdateUsers" element={<UpdateUsers />} />
       
         // excluir as rotas privadas abaixo quando estiver pronto o sistema de autenticação
         <Route path="/home" element={<Dashboard />} />
-          <Route path="/CreateUser" element={<CreateUser />} />
           <Route path="/users" element={<User />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/configs" element={<Configurations />} />

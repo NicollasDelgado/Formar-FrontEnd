@@ -4,4 +4,5 @@ export interface IUser {
   email: string
   whatsapp: string
   avatar?: string
+  role: 'admin' | 'user'
 }
