@@ -1,8 +1,11 @@
 export interface IUser {
-  id?: number | null
+  id: string
   name: string
   email: string
-  whatsapp: string
+  whatsapp?: string
   avatar?: string
-  role: 'admin' | 'user'
+  id_profile: number
+  status: boolean
+  mail_ok: boolean
+  role?: string
 }

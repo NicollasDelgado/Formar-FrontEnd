@@ -16,7 +16,6 @@ import {
 
 import { useNavigate, Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../../shared/hooks/auth'
-import { useToast } from '../../shared/hooks/Toast'
 import { InputText } from '../../shared/components/hook-form-components/input-text'
 import { AuthLayout } from '../../shared/layouts/AuthLayoutPage'
 
@@ -28,9 +27,9 @@ const loginFormValidationSchema = zod.object({
 type LoginFormType = zod.infer<typeof loginFormValidationSchema>
 
 export const Login: React.FC = () => {
-  const { addToast } = useToast()
   const navigate = useNavigate()
-  const { signIn } = useAuth()
+  const auth = useAuth()
+  const signIn = auth.signIn
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [placeholder, setPlaceholder] = useState('Digite seu e-mail')
@@ -50,28 +49,40 @@ export const Login: React.FC = () => {
     async (data: LoginFormType) => {
       try {
         setLoading(true)
+        console.log('🔐 Tentando login...', data.email)
+        
         const result = await signIn({
           email: data.email,
           password: data.password,
         })
-
-        addToast({
-          type: 'success',
-          title: `Bem Vindo ${result?.user.name}`,
-        })
+console.log('✅ SUCESSO! Resposta completa:', result)
+console.log('🔑 Token:', (result as any).token)
+console.log('👤 Usuário:', (result as any).user)
+        
+        // COMENTE O TOAST TEMPORARIAMENTE:
+        // addToast({
+        //   type: 'success',
+        //   title: `Bem Vindo ${result?.user.name}`,
+        // })
 
         navigate('/home')
       } catch (err: any) {
-        addToast({
-          type: 'error',
-          title: 'Erro ao logar',
-          description: 'Verifique suas credenciais',
-        })
+        console.error('❌ ERRO no login:', err)
+        console.log('📋 Detalhes do erro:', err.response?.data)
+        
+        // COMENTE O TOAST TEMPORARIAMENTE:
+        // addToast({
+        //   type: 'error',
+        //   title: 'Erro ao logar',
+        //   description: 'Verifique suas credenciais',
+        // })
+        
+        alert('Erro ao fazer login: ' + (err.response?.data?.message || err.message))
       } finally {
         setLoading(false)
       }
     },
-    [addToast, navigate, signIn],
+    [navigate, signIn], // REMOVA addToast daqui
   )
 
   return (

@@ -93,6 +93,7 @@ export const CreateUser: React.FC = () => {
   return (
     <CreateLayoutPage>
       <Box mb={1}>
+        <Button >
         <Typography
           variant="h4"
           component="h1"
@@ -102,6 +103,7 @@ export const CreateUser: React.FC = () => {
         >
           Criar Conta
         </Typography>
+        </Button>
         <Typography variant="body2" textAlign="center" color="text.secondary">
           Preencha os dados abaixo para criar sua conta
         </Typography>

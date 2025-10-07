@@ -1,10 +1,11 @@
-import { environment } from '../../../../environment'
+import { AxiosRequestConfig } from 'axios'
 
-export const tokenInterceptor = (request: any) => {
-  const token = localStorage.getItem(environment.APP_NAME)
+export const tokenInterceptor = (request: AxiosRequestConfig) => {
+  const token = localStorage.getItem('@Formar:token')
 
   if (token && request.headers) {
     request.headers.Authorization = `Bearer ${token}`
   }
+
   return request
 }

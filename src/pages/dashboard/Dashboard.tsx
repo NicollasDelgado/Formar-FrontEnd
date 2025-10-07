@@ -14,6 +14,7 @@ import {
 import { BaseLayoutPage } from '../../shared/layouts/BaseLayoutPage/BaseLayoutPage';
 import { useAuth } from '../../shared/hooks/auth';
 import { Person as PersonIcon } from '@mui/icons-material';
+import { usePermission } from '../../shared/hooks/usePermission';
 // Interfaces
 interface WeekDay {
   date: Date;
@@ -54,13 +55,19 @@ interface Droplet {
   color: string;
 }
 
+const DebugUserInfo: React.FC = () => {
+  const { user } = useAuth()
+  const { userRole } = usePermission()
 
-// Funções de Navegação
-const handleEditProfile = () => {
-  window.location.href = '/UpdateUsers';
+  
+  useEffect(() => {
+  console.log('🔐 Dados COMPLETOS do usuário:', JSON.stringify(user, null, 2))
+  console.log('👤 Role do usuário:', user?.role)
+  console.log('🛡️ É admin?', user?.role === 'admin')
+}, [user])
+
+  return null;
 };
-
-
 // Funções auxiliares
 const getInitials = (name: string): string => {
   return name.split(' ').map(word => word.charAt(0).toUpperCase()).slice(0, 2).join('');
@@ -1211,8 +1218,9 @@ export const Dashboard: React.FC = () => {
   );
 
   return (
-    <BaseLayoutPage>
-      {renderSplashDroplets()}
+  <BaseLayoutPage>
+    {renderSplashDroplets()}
+    <DebugUserInfo />
       <Box sx={{ p: { xs: 2, md: 3 } }}>
         {renderHeader()}
         <Box display="flex" flexDirection="column" gap={2}>
@@ -1241,4 +1249,4 @@ export const Dashboard: React.FC = () => {
       </Box>
     </BaseLayoutPage>
   );
-}
+};

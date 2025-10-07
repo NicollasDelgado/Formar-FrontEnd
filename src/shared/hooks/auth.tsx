@@ -1,105 +1,76 @@
-/* eslint-disable camelcase */
+// src/shared/hooks/auth.tsx
 import React, { createContext, useCallback, useState, useContext } from 'react'
+import { authService } from '../../services/authService'
 
-import { environment } from '../environment'
-import { login } from '../../api/api'
+interface User {
+  id: string
+  name: string
+  email: string
+  whatsapp?: string
+  avatar?: string
+  id_profile: number
+  status: boolean
+  mail_ok: boolean
+  role?: string
+}
 
-import { ILogin, IUser } from '../dtos'
-
-interface SignInCredencials {
+interface SignInCredentials {
   email: string
   password: string
 }
 
-interface IUserResponseProps {
-  user: IUser
-}
-
 interface AuthContextData {
-  user: IUser
+  user: User
   token: string
-  signIn(credentials: SignInCredencials): Promise<IUserResponseProps | null>
+  signIn(credentials: SignInCredentials): Promise<{ token: string; user: User }>
   signOut(): void
-  updateUser(user: IUser): void
-}
-
-interface AuthProps {
-  children: React.ReactNode
+  updateUser(user: User): void
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
-const AuthProvider: React.FC<AuthProps> = ({ children }) => {
-  const [data, setData] = useState<ILogin>(() => {
-    const payload = localStorage.getItem(environment.APP_NAME)
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [data, setData] = useState<{ token: string; user: User }>(() => {
+    const token = authService.getToken()
+    const user = authService.getCurrentUser()
 
-    if (payload) {
-      const parsedPayload = JSON.parse(payload)
-
-      const { token, user } = parsedPayload
-
+    if (token && user) {
       return { token, user }
     }
-
-    return {} as ILogin
+    return {} as { token: string; user: User }
   })
 
-  const signIn = useCallback(async ({ email, password }: SignInCredencials) => {
-    const payload = await login(email, password)
-    payload.user.role = 'admin'
+  const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
+    const response = await authService.login({ email, password })
+    authService.saveAuthData(response.token, response.user)
+    
+    setData({
+      token: response.token,
+      user: response.user
+    })
 
-  localStorage.setItem(environment.APP_NAME, JSON.stringify(payload))
-  setData(payload)
-  return payload
-  
+    return response
   }, [])
 
   const signOut = useCallback(() => {
-    localStorage.removeItem(environment.APP_NAME)
-
-    setData({} as ILogin)
+    authService.logout()
+    setData({} as { token: string; user: User })
   }, [])
 
-  const updateUser = useCallback(
-    (user: IUser) => {
-      localStorage.setItem(
-        environment.APP_NAME,
-        JSON.stringify({
-          token: data.token,
-          user,
-        }),
-      )
-      setData({
-        token: data.token,
-        user,
-      })
-    },
-    [data.token],
-  )
+  const updateUser = useCallback((user: User) => {
+    authService.saveAuthData(data.token, user)
+    setData(prev => ({ ...prev, user }))
+  }, [data.token])
 
   return (
-    <AuthContext.Provider
-      value={{
-        user: data.user,
-        token: data.token,
-        signIn,
-        signOut,
-        updateUser,
-      }}
-    >
+    <AuthContext.Provider value={{ user: data.user, token: data.token, signIn, signOut, updateUser }}>
       {children}
     </AuthContext.Provider>
   )
 }
 
-function useAuth(): AuthContextData {
+export function useAuth(): AuthContextData {
   const context = useContext(AuthContext)
-
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
-
+  if (!context) throw new Error('useAuth must be used within an AuthProvider')
   return context
 }
-
-export { AuthProvider, useAuth }
